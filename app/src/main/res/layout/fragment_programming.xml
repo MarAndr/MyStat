@@ -87,141 +87,172 @@
         app:layout_constraintTop_toBottomOf="@id/button_ok" />
 
     <TextView
-        app:layout_constraintVertical_chainStyle="packed"
-        android:text="Results of the day: "
-        android:layout_marginBottom="10dp"
         android:id="@+id/tv_results_title"
-        android:textSize="23sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Results of the day: "
+        android:textSize="23sp"
         app:layout_constraintBottom_toTopOf="@+id/results_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_list" />
+        app:layout_constraintTop_toBottomOf="@+id/button_list"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <LinearLayout
         android:id="@+id/results_container"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/statPeriodContainer1"
         app:layout_constraintTop_toBottomOf="@+id/tv_results_title"
         tools:layout_editor_absoluteX="10dp">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <TextView
-                android:text="ZaycevHome: "
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="ZaycevHome: " />
+
             <TextView
                 android:id="@+id/tv_zaycev_value"
-                tools:text="20"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tools:text="20" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <TextView
-                android:text="MyApp: "
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="MyApp: " />
+
             <TextView
                 android:id="@+id/tv_myApp_value"
-                tools:text="20"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tools:text="20" />
         </LinearLayout>
 
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <TextView
-                android:text="Anki: "
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="Anki: " />
+
             <TextView
                 android:id="@+id/tv_anki_value"
-                tools:text="20"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tools:text="20" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <TextView
-                android:text="Skillbox: "
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="Skillbox: " />
+
             <TextView
                 android:id="@+id/tv_skillbox_value"
-                tools:text="20"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tools:text="20" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <TextView
-                android:text="Puzzle: "
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="Puzzle: " />
+
             <TextView
                 android:id="@+id/tv_puzzle_value"
-                tools:text="20"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tools:text="20" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <TextView
-                android:text="Common Education: "
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="Common Education: " />
+
             <TextView
                 android:id="@+id/tv_commonEducation_value"
-                tools:text="20"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tools:text="20" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <TextView
-                android:text="All categories: "
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="All categories: "
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tv_all_value"
-                tools:text="20"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                tools:text="20" />
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/totalSum_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Total sum"
+        app:layout_constraintBottom_toTopOf="@id/statPeriodContainer1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/results_container" />
 
     <LinearLayout
         android:id="@+id/statPeriodContainer1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/statPeriodContainer2"
+        app:layout_constraintBottom_toTopOf="@id/averageSum_title"
+        app:layout_constraintTop_toBottomOf="@id/totalSum_title"
         tools:layout_editor_absoluteX="10dp">
 
         <Button
@@ -231,31 +262,43 @@
             android:text="day" />
 
         <Button
-            android:backgroundTint="@color/grey_200"
             android:id="@+id/button_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/grey_200"
             android:text="month" />
 
         <Button
-            android:backgroundTint="@color/grey_200"
             android:id="@+id/button_year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/grey_200"
             android:text="year" />
 
         <Button
-            android:backgroundTint="@color/grey_200"
             android:id="@+id/button_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/grey_200"
             android:text="all" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/averageSum_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Average day sum"
+        app:layout_constraintBottom_toTopOf="@id/statPeriodContainer2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statPeriodContainer1" />
 
     <LinearLayout
         android:id="@+id/statPeriodContainer2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="10dp">
@@ -281,7 +324,6 @@
             android:backgroundTint="@color/grey_200"
             android:text="av all" />
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

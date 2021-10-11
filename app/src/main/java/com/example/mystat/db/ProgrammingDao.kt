@@ -19,6 +19,9 @@ interface ProgrammingDao {
     @Query("SELECT SUM(${DbConstants.ProgrammingColumns.DURATION}) FROM ${DbConstants.PROGR_TABLE_NAME}")
     fun sumAllCategories(): Int
 
+//    @Query("SELECT SUM(${DbConstants.ProgrammingColumns.DURATION}) FROM ${DbConstants.PROGR_TABLE_NAME} WHERE ${} = :year")
+//    fun sumAllCategoriesThisYear(year: LocalDate = LocalDate.now()): Int
+
     @Query("SELECT SUM(${DbConstants.ProgrammingColumns.DURATION}) FROM ${DbConstants.PROGR_TABLE_NAME} WHERE ${DbConstants.ProgrammingColumns.DAY} = :day")
     fun sumAllCategoriesToday(day: LocalDate = LocalDate.now()): Int
 
@@ -27,4 +30,7 @@ interface ProgrammingDao {
 
     @Query("SELECT SUM(${DbConstants.ProgrammingColumns.DURATION}) FROM ${DbConstants.PROGR_TABLE_NAME} WHERE ${DbConstants.ProgrammingColumns.TYPE} = :type AND ${DbConstants.ProgrammingColumns.DAY} = :day")
     suspend fun sumAllDurationsByTypeToday(type: ProgrammingTypes, day: LocalDate = LocalDate.now()): Int
+
+    @Query("SELECT SUM(${DbConstants.ProgrammingColumns.DURATION}) FROM ${DbConstants.PROGR_TABLE_NAME} WHERE ${DbConstants.ProgrammingColumns.TYPE} = :type AND ${DbConstants.ProgrammingColumns.DAY} = :day")
+    suspend fun sumAllDurationsByTypeThisMonth(type: ProgrammingTypes, day: LocalDate = LocalDate.now()): Int
 }
