@@ -7,8 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.mystat.Months
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.text.DecimalFormat
 import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 
 class ProgrammingViewModel : ViewModel() {
 
@@ -28,18 +30,18 @@ class ProgrammingViewModel : ViewModel() {
     val durationSumAllCategoriesAllTime: LiveData<Int> = _durationSumAllCategoriesAllTime
 
     //Duration sum by categories
-    private val _programmingStatSumZay = MutableLiveData<Int>()
-    val programmingStatSumZay: LiveData<Int> = _programmingStatSumZay
-    private val _programmingStatSumMyApp = MutableLiveData<Int>()
-    val programmingStatSumMyApp: LiveData<Int> = _programmingStatSumMyApp
-    private val _programmingStatSumAnki = MutableLiveData<Int>()
-    val programmingStatSumAnki: LiveData<Int> = _programmingStatSumAnki
-    private val _programmingStatSumSkillbox = MutableLiveData<Int>()
-    val programmingStatSumSkillbox: LiveData<Int> = _programmingStatSumSkillbox
-    private val _programmingStatSumPuzzle = MutableLiveData<Int>()
-    val programmingStatSumPuzzle: LiveData<Int> = _programmingStatSumPuzzle
-    private val _programmingStatSumCommonEducation = MutableLiveData<Int>()
-    val programmingStatSumCommonEducation: LiveData<Int> = _programmingStatSumCommonEducation
+    private val _durationSumZayAllTime = MutableLiveData<Int>()
+    val durationSumZayAllTime: LiveData<Int> = _durationSumZayAllTime
+    private val _durationSumMyAppAllTime = MutableLiveData<Int>()
+    val durationSumMyAppAllTime: LiveData<Int> = _durationSumMyAppAllTime
+    private val _durationSumAnkiAllTime = MutableLiveData<Int>()
+    val durationSumAnkiAllTime: LiveData<Int> = _durationSumAnkiAllTime
+    private val _durationSumSkillboxAllTime = MutableLiveData<Int>()
+    val durationSumSkillboxAllTime: LiveData<Int> = _durationSumSkillboxAllTime
+    private val _durationSumPuzzleAllTime = MutableLiveData<Int>()
+    val durationSumPuzzleAllTime: LiveData<Int> = _durationSumPuzzleAllTime
+    private val _durationSumCommonEducationAllTime = MutableLiveData<Int>()
+    val durationSumCommonEducationAllTime: LiveData<Int> = _durationSumCommonEducationAllTime
 
     //Today duration sum --------------------------------------------------------------------------
 
@@ -49,19 +51,19 @@ class ProgrammingViewModel : ViewModel() {
     val durationSumAllCategoriesToday: LiveData<Int> = _durationSumAllCategoriesToday
 
     //Today duration sum by categories
-    private val _programmingStatSumTodayZay = MutableLiveData<Int>()
-    val programmingStatSumTodayZay: LiveData<Int> = _programmingStatSumTodayZay
-    private val _programmingStatSumTodayMyApp = MutableLiveData<Int>()
-    val programmingStatSumTodayMyApp: LiveData<Int> = _programmingStatSumTodayMyApp
-    private val _programmingStatSumTodayAnki = MutableLiveData<Int>()
-    val programmingStatSumTodayAnki: LiveData<Int> = _programmingStatSumTodayAnki
-    private val _programmingStatSumTodaySkillbox = MutableLiveData<Int>()
-    val programmingStatSumTodaySkillbox: LiveData<Int> = _programmingStatSumTodaySkillbox
-    private val _programmingStatSumTodayPuzzle = MutableLiveData<Int>()
-    val programmingStatSumTodayPuzzle: LiveData<Int> = _programmingStatSumTodayPuzzle
-    private val _programmingStatSumTodayCommonEducation = MutableLiveData<Int>()
-    val programmingStatSumTodayCommonEducation: LiveData<Int> =
-        _programmingStatSumTodayCommonEducation
+    private val _durationSumZayToday = MutableLiveData<Int>()
+    val durationSumZayToday: LiveData<Int> = _durationSumZayToday
+    private val _durationSumMyAppToday = MutableLiveData<Int>()
+    val durationSumMyAppToday: LiveData<Int> = _durationSumMyAppToday
+    private val _durationSumAnkiToday = MutableLiveData<Int>()
+    val durationSumAnkiToday: LiveData<Int> = _durationSumAnkiToday
+    private val _durationSumSkillboxToday = MutableLiveData<Int>()
+    val durationSumSkillboxToday: LiveData<Int> = _durationSumSkillboxToday
+    private val _durationSumPuzzleToday = MutableLiveData<Int>()
+    val durationSumPuzzleToday: LiveData<Int> = _durationSumPuzzleToday
+    private val _durationSumCommonEducationToday = MutableLiveData<Int>()
+    val durationSumCommonEducationToday: LiveData<Int> =
+        _durationSumCommonEducationToday
 
     //This month duration sum -----------------------------------------------------------------------
 
@@ -124,23 +126,89 @@ class ProgrammingViewModel : ViewModel() {
 
     //Average month duration sums --------------------------------------------------------
 
+    //Average month duration sums for all categories
+
+    private val _durationByAllCategoriesAvByMonth = MutableLiveData<String>()
+    val durationByAllCategoriesAvByMonth: LiveData<String> = _durationByAllCategoriesAvByMonth
+
+    //Average year duration sums by categories
+
+    private val _durationZayAvByMonth = MutableLiveData<String>()
+    val durationZayAvByMonth: LiveData<String> = _durationZayAvByMonth
+
+    private val _durationMyAppAvByMonth = MutableLiveData<String>()
+    val durationMyAppAvByMonth: LiveData<String> = _durationMyAppAvByMonth
+
+    private val _durationAnkiAvByMonth = MutableLiveData<String>()
+    val durationAnkiAvByMonth: LiveData<String> = _durationAnkiAvByMonth
+
+    private val _durationSkillboxAvByMonth = MutableLiveData<String>()
+    val durationSkillboxAvByMonth: LiveData<String> = _durationSkillboxAvByMonth
+
+    private val _durationPuzzleAvByMonth = MutableLiveData<String>()
+    val durationPuzzleAvByMonth: LiveData<String> = _durationPuzzleAvByMonth
+
+    private val _durationCommonEducationAvByMonth = MutableLiveData<String>()
+    val durationCommonEducationAvByMonth: LiveData<String> = _durationCommonEducationAvByMonth
+
     //Average year duration sums ---------------------------------------------------------
 
     //Average year duration sums for all categories
 
-    private val _programmingAvDayStatByYearAllCategories = MutableLiveData<String>()
-    val programmingAvDayStatByYearAllCategories: LiveData<String> = _programmingAvDayStatByYearAllCategories
+    private val _durationByAllCategoriesAvByYear = MutableLiveData<String>()
+    val durationByAllCategoriesAvByYear: LiveData<String> = _durationByAllCategoriesAvByYear
 
     //Average year duration sums by categories
 
-    private val _programmingAvDayStatByYearZaycevType = MutableLiveData<String>()
-    val programmingAvDayStatByYearZaycevType: LiveData<String> = _programmingAvDayStatByYearZaycevType
+    private val _durationZayAvByYear = MutableLiveData<String>()
+    val durationZayAvByYear: LiveData<String> = _durationZayAvByYear
 
+    private val _durationMyAppAvByYear = MutableLiveData<String>()
+    val durationMyAppAvByYear: LiveData<String> = _durationMyAppAvByYear
 
+    private val _durationAnkiAvByYear = MutableLiveData<String>()
+    val durationAnkiAvByYear: LiveData<String> = _durationAnkiAvByYear
+
+    private val _durationSkillboxAvByYear = MutableLiveData<String>()
+    val durationSkillboxAvByYear: LiveData<String> = _durationSkillboxAvByYear
+
+    private val _durationPuzzleAvByYear = MutableLiveData<String>()
+    val durationPuzzleAvByYear: LiveData<String> = _durationPuzzleAvByYear
+
+    private val _durationCommonEducationAvByYear = MutableLiveData<String>()
+    val durationCommonEducationAvByYear: LiveData<String> = _durationCommonEducationAvByYear
+
+    //Average all time duration sums ---------------------------------------------------------
+
+    //Average all time duration sums for all categories
+
+    private val _durationByAllCategoriesAvByAllTime = MutableLiveData<String>()
+    val durationByAllCategoriesAvByAllTime: LiveData<String> = _durationByAllCategoriesAvByAllTime
+
+    //Average all time duration sums for selected categories
+
+    private val _durationZayAvByAllTime = MutableLiveData<String>()
+    val durationZayAvByAllTime: LiveData<String> = _durationZayAvByAllTime
+
+    private val _durationMyAppAvByAllTime = MutableLiveData<String>()
+    val durationMyAppAvByAllTime: LiveData<String> = _durationMyAppAvByAllTime
+
+    private val _durationAnkiAvByAllTime = MutableLiveData<String>()
+    val durationAnkiAvByAllTime: LiveData<String> = _durationAnkiAvByAllTime
+
+    private val _durationSkillboxAvByAllTime = MutableLiveData<String>()
+    val durationSkillboxAvByAllTime: LiveData<String> = _durationSkillboxAvByAllTime
+
+    private val _durationPuzzleAvByAllTime = MutableLiveData<String>()
+    val durationPuzzleAvByAllTime: LiveData<String> = _durationPuzzleAvByAllTime
+
+    private val _durationCommonEducationAvByAllTime = MutableLiveData<String>()
+    val durationCommonEducationAvByAllTime: LiveData<String> = _durationCommonEducationAvByAllTime
 
 
     //METHODS ---------------------------------------------------------------------------------------------------
 
+    //Adding and getting programming statistic -----------------------------------------------------
     fun addProgrammingStat(programmingStat: List<ProgrammingStat>) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addProgrammingStat(programmingStat)
@@ -153,11 +221,9 @@ class ProgrammingViewModel : ViewModel() {
         }
     }
 
+    //GET TOTAL SUMS -------------------------------------------------------------------------------
 
-
-    //get total sums ------------------------------------------------------------
-
-    //total sum for all categories
+    //total sum for ALL CATEGORIES
 
     fun getDurationSumForAllCategoriesAllTime() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -174,9 +240,11 @@ class ProgrammingViewModel : ViewModel() {
     fun getDurationSumForAllCategoriesThisMonth() {
         viewModelScope.launch(Dispatchers.IO) {
             val currentMonth = LocalDate.now().month.toString()
+            val currentYear = LocalDate.now().year.toString()
             val prStat = repository.getProgrammingStat().filter { programmingStat ->
+                val year = programmingStat.day.toString().substringBefore('-')
                 val month = programmingStat.day.toString().substringBeforeLast('-').substringAfter('-')
-                month == getMonthByName(currentMonth)
+                month == getMonthByName(currentMonth)&&year==currentYear
             }
             var sum = 0
             prStat.forEach { programmingStat ->
@@ -200,90 +268,56 @@ class ProgrammingViewModel : ViewModel() {
         }
     }
 
-    //total sums for selected categories
+    //total sums for SELECTED categories -----------------------------------------------------------
 
-    //all time
-    fun getDurationSumByTypesAllTime(types: ProgrammingTypes) {
-        viewModelScope.launch(Dispatchers.IO) {
-            when (types) {
-                ProgrammingTypes.ZAYCEV -> _programmingStatSumZay.postValue(
-                    repository.getAllSumByType(
-                        ProgrammingTypes.ZAYCEV
-                    )
-                )
-                ProgrammingTypes.MY_APP -> _programmingStatSumMyApp.postValue(
-                    repository.getAllSumByType(
-                        ProgrammingTypes.MY_APP
-                    )
-                )
-                ProgrammingTypes.ANKI -> _programmingStatSumAnki.postValue(
-                    repository.getAllSumByType(
-                        ProgrammingTypes.ANKI
-                    )
-                )
-                ProgrammingTypes.SKILLBOX -> _programmingStatSumSkillbox.postValue(
-                    repository.getAllSumByType(
-                        ProgrammingTypes.SKILLBOX
-                    )
-                )
-                ProgrammingTypes.PUZZLE -> _programmingStatSumPuzzle.postValue(
-                    repository.getAllSumByType(
-                        ProgrammingTypes.PUZZLE
-                    )
-                )
-                ProgrammingTypes.COMMON_EDUCATION -> _programmingStatSumCommonEducation.postValue(
-                    repository.getAllSumByType(ProgrammingTypes.COMMON_EDUCATION)
-                )
-            }
-        }
-    }
-
-    //current day
+    //total sums for selected categories current day
 
     fun getDurationSumByTypesToday(types: ProgrammingTypes) {
         viewModelScope.launch(Dispatchers.IO) {
             when (types) {
-                ProgrammingTypes.ZAYCEV -> _programmingStatSumTodayZay.postValue(
+                ProgrammingTypes.ZAYCEV -> _durationSumZayToday.postValue(
                     repository.getAllSumByTypeToday(
                         ProgrammingTypes.ZAYCEV
                     )
                 )
-                ProgrammingTypes.MY_APP -> _programmingStatSumTodayMyApp.postValue(
+                ProgrammingTypes.MY_APP -> _durationSumMyAppToday.postValue(
                     repository.getAllSumByTypeToday(
                         ProgrammingTypes.MY_APP
                     )
                 )
-                ProgrammingTypes.ANKI -> _programmingStatSumTodayAnki.postValue(
+                ProgrammingTypes.ANKI -> _durationSumAnkiToday.postValue(
                     repository.getAllSumByTypeToday(
                         ProgrammingTypes.ANKI
                     )
                 )
-                ProgrammingTypes.SKILLBOX -> _programmingStatSumTodaySkillbox.postValue(
+                ProgrammingTypes.SKILLBOX -> _durationSumSkillboxToday.postValue(
                     repository.getAllSumByTypeToday(ProgrammingTypes.SKILLBOX)
                 )
-                ProgrammingTypes.PUZZLE -> _programmingStatSumTodayPuzzle.postValue(
+                ProgrammingTypes.PUZZLE -> _durationSumPuzzleToday.postValue(
                     repository.getAllSumByTypeToday(
                         ProgrammingTypes.PUZZLE
                     )
                 )
-                ProgrammingTypes.COMMON_EDUCATION -> _programmingStatSumTodayCommonEducation.postValue(
+                ProgrammingTypes.COMMON_EDUCATION -> _durationSumCommonEducationToday.postValue(
                     repository.getAllSumByTypeToday(ProgrammingTypes.COMMON_EDUCATION)
                 )
             }
         }
     }
 
-    //current month
+    //total sums for selected categories current month
 
     fun getDurationSumByTypesThisMonth(types: ProgrammingTypes){
         viewModelScope.launch(Dispatchers.IO) {
             when (types) {
 
                 ProgrammingTypes.ZAYCEV -> {
+                    val currentYear = LocalDate.now().year.toString()
                     val currentMonth = LocalDate.now().month.toString()
                     val prStat = repository.getProgrammingStat().filter { programmingStat ->
+                        val year = programmingStat.day.toString().substringBefore('-')
                         val month = programmingStat.day.toString().substringBeforeLast('-').substringAfter('-')
-                        month == getMonthByName(currentMonth)
+                        month == getMonthByName(currentMonth)&&year==currentYear
                     }
                     var sum = 0
                     prStat.forEach { programmingStat ->
@@ -294,10 +328,12 @@ class ProgrammingViewModel : ViewModel() {
                 }
 
                 ProgrammingTypes.MY_APP -> {
+                    val currentYear = LocalDate.now().year.toString()
                     val currentMonth = LocalDate.now().month.toString()
                     val prStat = repository.getProgrammingStat().filter { programmingStat ->
+                        val year = programmingStat.day.toString().substringBefore('-')
                         val month = programmingStat.day.toString().substringBeforeLast('-').substringAfter('-')
-                        month == getMonthByName(currentMonth)
+                        month == getMonthByName(currentMonth)&&year==currentYear
                     }
                     var sum = 0
                     prStat.forEach { programmingStat ->
@@ -308,10 +344,12 @@ class ProgrammingViewModel : ViewModel() {
                 }
 
                 ProgrammingTypes.ANKI -> {
+                    val currentYear = LocalDate.now().year.toString()
                     val currentMonth = LocalDate.now().month.toString()
                     val prStat = repository.getProgrammingStat().filter { programmingStat ->
+                        val year = programmingStat.day.toString().substringBefore('-')
                         val month = programmingStat.day.toString().substringBeforeLast('-').substringAfter('-')
-                        month == getMonthByName(currentMonth)
+                        month == getMonthByName(currentMonth)&&year==currentYear
                     }
                     var sum = 0
                     prStat.forEach { programmingStat ->
@@ -322,10 +360,12 @@ class ProgrammingViewModel : ViewModel() {
                 }
 
                 ProgrammingTypes.SKILLBOX -> {
+                    val currentYear = LocalDate.now().year.toString()
                     val currentMonth = LocalDate.now().month.toString()
                     val prStat = repository.getProgrammingStat().filter { programmingStat ->
+                        val year = programmingStat.day.toString().substringBefore('-')
                         val month = programmingStat.day.toString().substringBeforeLast('-').substringAfter('-')
-                        month == getMonthByName(currentMonth)
+                        month == getMonthByName(currentMonth)&&year==currentYear
                     }
                     var sum = 0
                     prStat.forEach { programmingStat ->
@@ -336,10 +376,12 @@ class ProgrammingViewModel : ViewModel() {
                 }
 
                 ProgrammingTypes.PUZZLE -> {
+                    val currentYear = LocalDate.now().year.toString()
                     val currentMonth = LocalDate.now().month.toString()
                     val prStat = repository.getProgrammingStat().filter { programmingStat ->
+                        val year = programmingStat.day.toString().substringBefore('-')
                         val month = programmingStat.day.toString().substringBeforeLast('-').substringAfter('-')
-                        month == getMonthByName(currentMonth)
+                        month == getMonthByName(currentMonth)&&year==currentYear
                     }
                     var sum = 0
                     prStat.forEach { programmingStat ->
@@ -350,10 +392,12 @@ class ProgrammingViewModel : ViewModel() {
                 }
 
                 ProgrammingTypes.COMMON_EDUCATION -> {
+                    val currentYear = LocalDate.now().year.toString()
                     val currentMonth = LocalDate.now().month.toString()
                     val prStat = repository.getProgrammingStat().filter { programmingStat ->
+                        val year = programmingStat.day.toString().substringBefore('-')
                         val month = programmingStat.day.toString().substringBeforeLast('-').substringAfter('-')
-                        month == getMonthByName(currentMonth)
+                        month == getMonthByName(currentMonth)&&year==currentYear
                     }
                     var sum = 0
                     prStat.forEach { programmingStat ->
@@ -366,7 +410,7 @@ class ProgrammingViewModel : ViewModel() {
         }
     }
 
-    //current year
+    //total sums for selected categories current year
 
     fun getDurationSumByTypesThisYear(types: ProgrammingTypes){
         viewModelScope.launch(Dispatchers.IO) {
@@ -382,6 +426,7 @@ class ProgrammingViewModel : ViewModel() {
                     if (programmingStat.type == ProgrammingTypes.ZAYCEV)
                     sum += programmingStat.durationInMin
                 }
+                    Timber.d("test")
                     _durationSumThisYearZay.postValue(sum)
                 }
 
@@ -453,51 +498,252 @@ class ProgrammingViewModel : ViewModel() {
         }
     }
 
-
-    //methods for average duration counting: -------------------------------------------------------
-
-    //average duration counting for all categories:
-
-    fun getProgrammingAvDayStatByYearAllCategories() {
+    //total sums for selected categories all time
+    fun getDurationSumByTypesAllTime(types: ProgrammingTypes) {
+        Timber.d("test")
         viewModelScope.launch(Dispatchers.IO) {
-
-            val max = repository.getProgrammingStat().maxByOrNull { programmingStat ->
-                programmingStat.day.toString().filter{it != '-'}
+            when (types) {
+                ProgrammingTypes.ZAYCEV -> _durationSumZayAllTime.postValue(
+                    repository.getAllSumByType(
+                        ProgrammingTypes.ZAYCEV
+                    )
+                )
+                ProgrammingTypes.MY_APP -> _durationSumMyAppAllTime.postValue(
+                    repository.getAllSumByType(
+                        ProgrammingTypes.MY_APP
+                    )
+                )
+                ProgrammingTypes.ANKI -> _durationSumAnkiAllTime.postValue(
+                    repository.getAllSumByType(
+                        ProgrammingTypes.ANKI
+                    )
+                )
+                ProgrammingTypes.SKILLBOX -> _durationSumSkillboxAllTime.postValue(
+                    repository.getAllSumByType(
+                        ProgrammingTypes.SKILLBOX
+                    )
+                )
+                ProgrammingTypes.PUZZLE -> _durationSumPuzzleAllTime.postValue(
+                    repository.getAllSumByType(
+                        ProgrammingTypes.PUZZLE
+                    )
+                )
+                ProgrammingTypes.COMMON_EDUCATION -> _durationSumCommonEducationAllTime.postValue(
+                    repository.getAllSumByType(ProgrammingTypes.COMMON_EDUCATION)
+                )
             }
-
-            val maxDateValue = max?.day
-
-            val dayOfYear = maxDateValue?.dayOfYear?:0
-            val averageDayDurationByYear = _durationSumAllCategoriesAllTime.value?.div(dayOfYear.toDouble())?:0.0
-            val decimalFormat = DecimalFormat("#.##")
-            val result: String = decimalFormat.format(averageDayDurationByYear)
-            _programmingAvDayStatByYearAllCategories.postValue(result)
         }
     }
 
-    fun getProgrammingAvDayStatByYearByType(types: ProgrammingTypes) {
+
+    //methods for AVERAGE duration counting: -------------------------------------------------------
+
+    //average duration counting for all categories:
+
+    //average duration counting by month for all categories
+
+    fun getAverageDurationByMonthAllCategories() {
         viewModelScope.launch(Dispatchers.IO) {
 
-            val max = repository.getProgrammingStat().maxByOrNull { programmingStat ->
+            val currentDay = LocalDate.now().dayOfMonth
+
+            val averageDayDurationByMonth = _durationSumAllCategoriesThisMonth.value?.div(currentDay.toDouble())?:0.0
+            val decimalFormat = DecimalFormat("#.##")
+            val result: String = decimalFormat.format(averageDayDurationByMonth)
+            _durationByAllCategoriesAvByMonth.postValue(result)
+        }
+    }
+
+    //average duration counting by year for all categories
+
+    fun getAverageDurationByYearAllCategories() {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val currentDay = LocalDate.now().dayOfYear
+            val averageDayDurationByYear = _durationSumAllCategoriesAllTime.value?.div(currentDay.toDouble())?:0.0
+            val decimalFormat = DecimalFormat("#.##")
+            val result: String = decimalFormat.format(averageDayDurationByYear)
+            _durationByAllCategoriesAvByYear.postValue(result)
+        }
+    }
+
+    //average duration counting by all time for all categories
+
+    fun getAverageDurationByAllTimeAllCategories() {
+        Timber.d("test")
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val minStatValue = repository.getProgrammingStat().minByOrNull { programmingStat ->
                 programmingStat.day.toString().filter{it != '-'}
             }
 
-            val maxDateValue = max?.day
+            val minDateValue = minStatValue?.day
+            val currentDay = LocalDate.now()
+            val days: Long? = minDateValue?.until(currentDay, ChronoUnit.DAYS)?.plus(1)
 
-            val dayOfYear = maxDateValue?.dayOfYear?:0
+            val averageDayDurationByYear = _durationSumAllCategoriesAllTime.value?.div(days?.toDouble()?:1.0)?:0.0
+            val decimalFormat = DecimalFormat("#.##")
+            val result: String = decimalFormat.format(averageDayDurationByYear)
+            _durationByAllCategoriesAvByAllTime.postValue(result)
+        }
+    }
+
+    //average duration counting for selected categories --------------------------------------------
+
+    //average duration counting by month for selected categories
+
+    fun getProgrammingAvDayStatByMonthByType(types: ProgrammingTypes) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val currentDay = LocalDate.now().dayOfMonth
+
             when(types){
                 ProgrammingTypes.ZAYCEV -> {
-                    val averageDayDurationByYear = _programmingStatSumZay.value?.div(dayOfYear.toDouble())?:0.0
+
+                    val averageDayDurationByMonth = _durationSumThisMonthZay.value?.div(currentDay.toDouble())?:0.0
                     val decimalFormat = DecimalFormat("#.##")
-                    val result: String = decimalFormat.format(averageDayDurationByYear)
-                    _programmingAvDayStatByYearZaycevType.postValue(result)
+                    val result: String = decimalFormat.format(averageDayDurationByMonth)
+                    _durationZayAvByMonth.postValue(result)
+                }
+                ProgrammingTypes.MY_APP -> {
+                    val averageDayDurationByMonth = _durationSumThisMonthMyApp.value?.div(currentDay.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByMonth)
+                    _durationMyAppAvByMonth.postValue(result)
+                }
+                ProgrammingTypes.ANKI -> {
+                    val averageDayDurationByMonth = _durationSumThisMonthAnki.value?.div(currentDay.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByMonth)
+                    _durationAnkiAvByMonth.postValue(result)
+                }
+                ProgrammingTypes.SKILLBOX -> {
+                    val averageDayDurationByMonth = _durationSumThisMonthSkillbox.value?.div(currentDay.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByMonth)
+                    _durationSkillboxAvByMonth.postValue(result)
+                }
+                ProgrammingTypes.PUZZLE -> {
+                    val averageDayDurationByMonth = _durationSumThisMonthPuzzle.value?.div(currentDay.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByMonth)
+                    _durationPuzzleAvByMonth.postValue(result)
+                }
+                ProgrammingTypes.COMMON_EDUCATION -> {
+                    val averageDayDurationByMonth = _durationSumThisMonthCommonEd.value?.div(currentDay.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByMonth)
+                    _durationCommonEducationAvByMonth.postValue(result)
                 }
             }
 
         }
     }
 
-    fun getMonthByName(monthName: String): String{
+    //average duration counting by year for selected categories
+
+    fun getProgrammingAvDayStatByYearByType(types: ProgrammingTypes) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val currentDay = LocalDate.now().dayOfYear
+            when(types){
+                ProgrammingTypes.ZAYCEV -> {
+                    val averageDayDurationByYear = _durationSumThisYearZay.value?.div(currentDay.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByYear)
+                    _durationZayAvByYear.postValue(result)
+                }
+                ProgrammingTypes.MY_APP -> {
+                    val averageDayDurationByYear = _durationSumThisYearMyApp.value?.div(currentDay.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByYear)
+                    _durationMyAppAvByYear.postValue(result)
+                }
+                ProgrammingTypes.ANKI -> {
+                    val averageDayDurationByYear = _durationSumThisYearAnki.value?.div(currentDay.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByYear)
+                    _durationAnkiAvByYear.postValue(result)
+                }
+                ProgrammingTypes.SKILLBOX -> {
+                    val averageDayDurationByYear = _durationSumThisYearSkillbox.value?.div(currentDay.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByYear)
+                    _durationSkillboxAvByYear.postValue(result)
+                }
+                ProgrammingTypes.PUZZLE -> {
+                    val averageDayDurationByYear = _durationSumThisYearPuzzle.value?.div(currentDay.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByYear)
+                    _durationPuzzleAvByYear.postValue(result)
+                }
+                ProgrammingTypes.COMMON_EDUCATION -> {
+                    val averageDayDurationByYear = _durationSumThisYearCommonEd.value?.div(currentDay.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByYear)
+                    _durationCommonEducationAvByYear.postValue(result)
+                }
+            }
+        }
+    }
+
+    //average duration counting by all time for selected categories
+
+    fun getProgrammingAvDayStatByAllTimeByType(types: ProgrammingTypes) {
+        Timber.d("test")
+        viewModelScope.launch(Dispatchers.IO) {
+            Timber.d("test")
+            val minStatValue = repository.getProgrammingStat().minByOrNull { programmingStat ->
+                programmingStat.day.toString().filter{it != '-'}
+            }
+
+            val minDateValue = minStatValue?.day
+            val currentDay = LocalDate.now()
+            val days: Long? = minDateValue?.until(currentDay, ChronoUnit.DAYS)?.plus(1)
+
+            when(types){
+                ProgrammingTypes.ZAYCEV -> {
+                    val averageDayDurationByAllTime = _durationSumZayAllTime.value?.div(days!!.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByAllTime)
+                    _durationZayAvByAllTime.postValue(result)
+                }
+                ProgrammingTypes.MY_APP -> {
+                    val averageDayDurationByAllTime = _durationSumMyAppAllTime.value?.div(days!!.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByAllTime)
+                    _durationMyAppAvByAllTime.postValue(result)
+                }
+                ProgrammingTypes.ANKI -> {
+                    val averageDayDurationByAllTime = _durationSumAnkiAllTime.value?.div(days!!.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByAllTime)
+                    _durationAnkiAvByAllTime.postValue(result)
+                }
+                ProgrammingTypes.SKILLBOX -> {
+                    val averageDayDurationByAllTime = _durationSumSkillboxAllTime.value?.div(days!!.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByAllTime)
+                    _durationSkillboxAvByAllTime.postValue(result)
+                }
+                ProgrammingTypes.PUZZLE -> {
+                    val averageDayDurationByAllTime = _durationSumPuzzleAllTime.value?.div(days!!.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByAllTime)
+                    _durationPuzzleAvByAllTime.postValue(result)
+                }
+                ProgrammingTypes.COMMON_EDUCATION -> {
+                    val averageDayDurationByAllTime = _durationSumCommonEducationAllTime.value?.div(days!!.toDouble())?:0.0
+                    val decimalFormat = DecimalFormat("#.##")
+                    val result: String = decimalFormat.format(averageDayDurationByAllTime)
+                    _durationCommonEducationAvByAllTime.postValue(result)
+                }
+            }
+        }
+    }
+
+
+
+    private fun getMonthByName(monthName: String): String{
         return when(monthName){
             Months.JANUARY.name -> "01"
             Months.FEBRUARY.name -> "02"

@@ -27,12 +27,12 @@ class ProgrammingFragment : Fragment(R.layout.fragment_programming) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getDurationSumForAllCategoriesToday()
-        viewModel.getDurationSumForAllCategoriesAllTime()
-
+        addStrikesInsteadAverageValues()
         viewModel.apply {
+            getDurationSumForAllCategoriesToday()
+            getDurationSumForAllCategoriesAllTime()
             ProgrammingTypes.values().forEach {
-                viewModel.getDurationSumByTypesAllTime(it)
+                getDurationSumByTypesAllTime(it)
             }
         }
 
@@ -56,65 +56,40 @@ class ProgrammingFragment : Fragment(R.layout.fragment_programming) {
                     type = programmingTypesAdding
                 )
             )
-            viewModel.addProgrammingStat(programmingStat)
-            viewModel.getDurationSumForAllCategoriesAllTime()
-            ProgrammingTypes.values().forEach {
-                viewModel.getDurationSumByTypesAllTime(it)
+            viewModel.apply {
+                addProgrammingStat(programmingStat)
+                getDurationSumForAllCategoriesAllTime()
+                ProgrammingTypes.values().forEach {
+                    getDurationSumByTypesAllTime(it)
+                }
             }
+
         }
 
         //Total sum buttons click ---------------------------------------------
 
         binding.buttonDay.setOnClickListener {
             changeButtonColor(ButtonTypes.DAY)
-            ProgrammingTypes.values().forEach {
-                viewModel.getDurationSumByTypesToday(it)
-            }
-            viewModel.getDurationSumForAllCategoriesToday()
+            getTotalDurationThisDay()
+            addStrikesInsteadAverageValues()
         }
 
         binding.buttonMonth.setOnClickListener {
             changeButtonColor(ButtonTypes.MONTH)
-            viewModel.getDurationSumForAllCategoriesThisMonth()
-            ProgrammingTypes.values().forEach {
-                viewModel.getDurationSumByTypesThisMonth(it)
-            }
+            getTotalDurationThisMonth()
+            getAverageDurationThisMonth()
         }
 
         binding.buttonYear.setOnClickListener {
             changeButtonColor(ButtonTypes.YEAR)
-            viewModel.getDurationSumForAllCategoriesThisYear()
-            ProgrammingTypes.values().forEach {
-            viewModel.getDurationSumByTypesThisYear(it)
-            }
+            getTotalDurationThisYear()
+            getAverageDurationThisYear()
         }
 
         binding.buttonAll.setOnClickListener {
             changeButtonColor(ButtonTypes.ALL)
-            ProgrammingTypes.values().forEach {
-            viewModel.getDurationSumByTypesAllTime(it)
-            }
-            viewModel.getDurationSumForAllCategoriesAllTime()
-        }
-
-        //Average buttons click -----------------------------------------
-
-        binding.buttonAvMonth.setOnClickListener {
-            changeButtonColor(ButtonTypes.AV_MONTH)
-        }
-
-        binding.buttonAvYear.setOnClickListener {
-            changeButtonColor(ButtonTypes.AV_YEAR)
-            viewModel.apply {
-                getProgrammingAvDayStatByYearAllCategories()
-                ProgrammingTypes.values().forEach {
-                getProgrammingAvDayStatByYearByType(it)
-                }
-            }
-        }
-
-        binding.buttonAvAll.setOnClickListener {
-            changeButtonColor(ButtonTypes.AV_ALL)
+            getTotalDurationAllTime()
+            getAverageDurationAllTime()
         }
 
         //Observing --------------------------------------------------------
@@ -122,272 +97,413 @@ class ProgrammingFragment : Fragment(R.layout.fragment_programming) {
         observe()
     }
 
+    private fun addStrikesInsteadAverageValues() {
+        binding.tvZaycevValueAverage.text = "-"
+        binding.tvMyAppValueAverage.text = "-"
+        binding.tvAnkiValueAverage.text = "-"
+        binding.tvSkillboxValueAverage.text = "-"
+        binding.tvPuzzleValueAverage.text = "-"
+        binding.tvCommonEducationValueAverage.text = "-"
+        binding.tvAllCategoriesValueAverage.text = "-"
+    }
+
+    private fun getTotalDurationThisDay() {
+        viewModel.apply {
+            getDurationSumForAllCategoriesToday()
+            ProgrammingTypes.values().forEach {
+                getDurationSumByTypesToday(it)
+            }
+        }
+    }
+
+    private fun getAverageDurationThisMonth() {
+        viewModel.apply {
+            getAverageDurationByMonthAllCategories()
+            ProgrammingTypes.values().forEach {
+                getProgrammingAvDayStatByMonthByType(it)
+            }
+        }
+    }
+
+    private fun getTotalDurationThisMonth() {
+        viewModel.apply {
+            getDurationSumForAllCategoriesThisMonth()
+            ProgrammingTypes.values().forEach {
+                getDurationSumByTypesThisMonth(it)
+            }
+        }
+    }
+
+    private fun getTotalDurationThisYear() {
+        viewModel.apply {
+            getDurationSumForAllCategoriesThisYear()
+            ProgrammingTypes.values().forEach {
+                getDurationSumByTypesThisYear(it)
+            }
+        }
+    }
+
+    private fun getAverageDurationThisYear() {
+        viewModel.apply {
+            getAverageDurationByYearAllCategories()
+            ProgrammingTypes.values().forEach {
+                getProgrammingAvDayStatByYearByType(it)
+            }
+        }
+    }
+
+    private fun getTotalDurationAllTime() {
+        viewModel.apply {
+            getDurationSumForAllCategoriesAllTime()
+            ProgrammingTypes.values().forEach {
+                getDurationSumByTypesAllTime(it)
+            }
+        }
+    }
+
+    private fun getAverageDurationAllTime() {
+        viewModel.apply {
+            getAverageDurationByAllTimeAllCategories()
+            ProgrammingTypes.values().forEach {
+                getProgrammingAvDayStatByAllTimeByType(it)
+            }
+        }
+    }
+
     private fun observe() {
 
-        //duration sum for all time all categories
+        //Total stat ----------------------------------------------------------------
 
-        viewModel.durationSumAllCategoriesAllTime.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
-                binding.tvAllValue.text = sum.toString()
+        observeStatAllCategories()
+        observeStatSelectedCategories()
+
+        //Average stat -----------------------------------------------------------------------------
+
+        observeAverageStatAllCategories()
+        observeAverageStatSelectedCategories()
+    }
+
+
+
+    private fun observeStatSelectedCategories() {
+        observeStatSelectedCategoriesAllTime()
+        observeStatSelectedCategoriesToday()
+        observeStatSelectedCategoriesThisYear()
+        observeStatSelectedCategoriesThisMonth()
+    }
+
+    private fun observeStatAllCategories() {
+        observeStatAllCategoriesAllTime()
+        observeStatAllCategoriesToday()
+        observeStatAllCategoriesThisYear()
+        observeStatAllCategoriesThisMonth()
+    }
+
+    private fun observeStatSelectedCategoriesAllTime() {
+        viewModel.durationSumZayAllTime.observe(viewLifecycleOwner) { sum ->
+            if (sum != null) {
+                binding.tvZaycevValueTotal.text = sum.toString()
             } else {
-                binding.tvAllValue.text = "0"
+                binding.tvZaycevValueTotal.text = "0"
             }
         }
 
-        //duration sum for all time for selected categories
-
-       viewModel.programmingStatSumZay.observe(viewLifecycleOwner) { sum ->
-           if (sum != null){
-            binding.tvZaycevValue.text = sum.toString()
-           } else {
-            binding.tvZaycevValue.text = "0"
-           }
-        }
-
-        viewModel.programmingStatSumSkillbox.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
-            binding.tvSkillboxValue.text = sum.toString()
-            } else {
-                binding.tvSkillboxValue.text = "0"
-            }
-        }
-
-        viewModel.programmingStatSumAnki.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
-            binding.tvAnkiValue.text = sum.toString()
-            } else {
-            binding.tvAnkiValue.text = "0"
-            }
-        }
-
-        viewModel.programmingStatSumMyApp.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
-            binding.tvMyAppValue.text = sum.toString()
-            } else {
-            binding.tvMyAppValue.text = "0"
-            }
-        }
-
-        viewModel.programmingStatSumCommonEducation.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
-            binding.tvCommonEducationValue.text = sum.toString()
-            } else {
-            binding.tvCommonEducationValue.text = "0"
-            }
-        }
-
-        viewModel.programmingStatSumPuzzle.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
-            binding.tvPuzzleValue.text = sum.toString()
-            } else {
-            binding.tvPuzzleValue.text = "0"
-            }
-        }
-
-
-
-        //duration sum for current day ------------------------------------------------------------
-
-        //duration sum for current day all categories
-
-        viewModel.durationSumAllCategoriesToday.observe(viewLifecycleOwner){ sum ->
-            if (sum != null){
-                binding.tvAllValue.text = sum.toString()
-            } else{
-                binding.tvAllValue.text = "0"
-            }
-        }
-
-        //duration sum for current day for selected categories
-
-        viewModel.programmingStatSumTodayZay.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
-                binding.tvZaycevValue.text = sum.toString()
-            } else {
-                binding.tvZaycevValue.text = "0"
-            }
-
-        }
-
-        viewModel.programmingStatSumTodaySkillbox.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
+        viewModel.durationSumSkillboxAllTime.observe(viewLifecycleOwner) { sum ->
+            if (sum != null) {
                 binding.tvSkillboxValue.text = sum.toString()
-            } else{
+            } else {
+                binding.tvSkillboxValue.text = "0"
+            }
+        }
+
+        viewModel.durationSumAnkiAllTime.observe(viewLifecycleOwner) { sum ->
+            if (sum != null) {
+                binding.tvAnkiValue.text = sum.toString()
+            } else {
+                binding.tvAnkiValue.text = "0"
+            }
+        }
+
+        viewModel.durationSumMyAppAllTime.observe(viewLifecycleOwner) { sum ->
+            if (sum != null) {
+                binding.tvMyAppValue.text = sum.toString()
+            } else {
+                binding.tvMyAppValue.text = "0"
+            }
+        }
+
+        viewModel.durationSumCommonEducationAllTime.observe(viewLifecycleOwner) { sum ->
+            if (sum != null) {
+                binding.tvCommonEducationValue.text = sum.toString()
+            } else {
+                binding.tvCommonEducationValue.text = "0"
+            }
+        }
+
+        viewModel.durationSumPuzzleAllTime.observe(viewLifecycleOwner) { sum ->
+            if (sum != null) {
+                binding.tvPuzzleValue.text = sum.toString()
+            } else {
+                binding.tvPuzzleValue.text = "0"
+            }
+        }
+    }
+
+    private fun observeStatAllCategoriesAllTime() {
+        viewModel.durationSumAllCategoriesAllTime.observe(viewLifecycleOwner) { sum ->
+            if (sum != null) {
+                binding.tvAllValue.text = sum.toString()
+            } else {
+                binding.tvAllValue.text = "0"
+            }
+        }
+    }
+
+    private fun observeStatSelectedCategoriesToday() {
+        viewModel.durationSumZayToday.observe(viewLifecycleOwner) { sum ->
+            if (sum != null) {
+                binding.tvZaycevValueTotal.text = sum.toString()
+            } else {
+                binding.tvZaycevValueTotal.text = "0"
+            }
+
+        }
+
+        viewModel.durationSumSkillboxToday.observe(viewLifecycleOwner) { sum ->
+            if (sum != null) {
+                binding.tvSkillboxValue.text = sum.toString()
+            } else {
                 binding.tvSkillboxValue.text = "0"
             }
 
         }
 
-        viewModel.programmingStatSumTodayAnki.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
-            binding.tvAnkiValue.text = sum.toString()
-            } else{
-            binding.tvAnkiValue.text = "0"
+        viewModel.durationSumAnkiToday.observe(viewLifecycleOwner) { sum ->
+            if (sum != null) {
+                binding.tvAnkiValue.text = sum.toString()
+            } else {
+                binding.tvAnkiValue.text = "0"
             }
         }
 
-        viewModel.programmingStatSumTodayMyApp.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
-            binding.tvMyAppValue.text = sum.toString()
-            } else{
-            binding.tvMyAppValue.text = "0"
+        viewModel.durationSumMyAppToday.observe(viewLifecycleOwner) { sum ->
+            if (sum != null) {
+                binding.tvMyAppValue.text = sum.toString()
+            } else {
+                binding.tvMyAppValue.text = "0"
             }
         }
 
-        viewModel.programmingStatSumTodayCommonEducation.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
-            binding.tvCommonEducationValue.text = sum.toString()
-            } else{
-
-            binding.tvCommonEducationValue.text = "0"
+        viewModel.durationSumPuzzleToday.observe(viewLifecycleOwner) { sum ->
+            if (sum != null) {
+                binding.tvPuzzleValue.text = sum.toString()
+            } else {
+                binding.tvPuzzleValue.text = "0"
             }
         }
 
-        viewModel.programmingStatSumTodayPuzzle.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
-            binding.tvPuzzleValue.text = sum.toString()
-            } else{
-            binding.tvPuzzleValue.text = "0"
+        viewModel.durationSumCommonEducationToday.observe(viewLifecycleOwner) { sum ->
+            if (sum != null) {
+                binding.tvCommonEducationValue.text = sum.toString()
+            } else {
+
+                binding.tvCommonEducationValue.text = "0"
             }
         }
+    }
 
-        //duration sum for this year ---------------------------------------------------------------
-
-        //all categories
-
-        viewModel.durationSumAllCategoriesThisYear.observe(viewLifecycleOwner){ sum ->
-            if (sum != null){
+    private fun observeStatAllCategoriesToday() {
+        viewModel.durationSumAllCategoriesToday.observe(viewLifecycleOwner) { sum ->
+            if (sum != null) {
                 binding.tvAllValue.text = sum.toString()
-            } else{
+            } else {
                 binding.tvAllValue.text = "0"
             }
         }
+    }
 
-        //selected categories
-
+    private fun observeStatSelectedCategoriesThisYear() {
         viewModel.durationSumThisYearZay.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
-                binding.tvZaycevValue.text = sum.toString()
-            } else{
-                binding.tvZaycevValue.text = "0"
+            if (sum != null) {
+                binding.tvZaycevValueTotal.text = sum.toString()
+            } else {
+                binding.tvZaycevValueTotal.text = "0"
             }
         }
 
         viewModel.durationSumThisYearMyApp.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
+            if (sum != null) {
                 binding.tvMyAppValue.text = sum.toString()
-            } else{
+            } else {
                 binding.tvMyAppValue.text = "0"
             }
         }
 
         viewModel.durationSumThisYearAnki.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
+            if (sum != null) {
                 binding.tvAnkiValue.text = sum.toString()
-            } else{
+            } else {
                 binding.tvAnkiValue.text = "0"
             }
         }
 
         viewModel.durationSumThisYearSkillbox.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
+            if (sum != null) {
                 binding.tvSkillboxValue.text = sum.toString()
-            } else{
+            } else {
                 binding.tvSkillboxValue.text = "0"
             }
         }
 
         viewModel.durationSumThisYearPuzzle.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
+            if (sum != null) {
                 binding.tvPuzzleValue.text = sum.toString()
-            } else{
+            } else {
                 binding.tvPuzzleValue.text = "0"
             }
         }
 
         viewModel.durationSumThisYearCommonEd.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
-                binding.tvCommonEducationValue.text = sum.toString()
-            } else{
-                binding.tvCommonEducationValue.text = "0"
+            if (sum != null) {
+                binding.tvCommonEducationValueAverage.text = sum.toString()
+            } else {
+                binding.tvCommonEducationValueAverage.text = "0"
             }
         }
+    }
 
-        //duration sum for this month ---------------------------------------------------------------
-
-        //all categories
-
-        viewModel.durationSumAllCategoriesThisMonth.observe(viewLifecycleOwner){ sum ->
-            if (sum != null){
+    private fun observeStatAllCategoriesThisYear() {
+        viewModel.durationSumAllCategoriesThisYear.observe(viewLifecycleOwner) { sum ->
+            if (sum != null) {
                 binding.tvAllValue.text = sum.toString()
-            } else{
+            } else {
                 binding.tvAllValue.text = "0"
             }
         }
+    }
 
-        //selected categories
+    private fun observeStatAllCategoriesThisMonth() {
+        viewModel.durationSumAllCategoriesThisMonth.observe(viewLifecycleOwner) { sum ->
+            if (sum != null) {
+                binding.tvAllValue.text = sum.toString()
+            } else {
+                binding.tvAllValue.text = "0"
+            }
+        }
+    }
 
+    private fun observeStatSelectedCategoriesThisMonth() {
         viewModel.durationSumThisMonthZay.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
-                binding.tvZaycevValue.text = sum.toString()
-            } else{
-                binding.tvZaycevValue.text = "0"
+            if (sum != null) {
+                binding.tvZaycevValueTotal.text = sum.toString()
+            } else {
+                binding.tvZaycevValueTotal.text = "0"
             }
         }
 
         viewModel.durationSumThisMonthMyApp.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
+            if (sum != null) {
                 binding.tvMyAppValue.text = sum.toString()
-            } else{
+            } else {
                 binding.tvMyAppValue.text = "0"
             }
         }
 
         viewModel.durationSumThisMonthAnki.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
+            if (sum != null) {
                 binding.tvAnkiValue.text = sum.toString()
-            } else{
+            } else {
                 binding.tvAnkiValue.text = "0"
             }
         }
 
         viewModel.durationSumThisMonthSkillbox.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
+            if (sum != null) {
                 binding.tvSkillboxValue.text = sum.toString()
-            } else{
+            } else {
                 binding.tvSkillboxValue.text = "0"
             }
         }
 
         viewModel.durationSumThisMonthPuzzle.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
+            if (sum != null) {
                 binding.tvPuzzleValue.text = sum.toString()
-            } else{
+            } else {
                 binding.tvPuzzleValue.text = "0"
             }
         }
 
         viewModel.durationSumThisMonthCommonEd.observe(viewLifecycleOwner) { sum ->
-            if (sum != null){
+            if (sum != null) {
                 binding.tvCommonEducationValue.text = sum.toString()
-            } else{
+            } else {
                 binding.tvCommonEducationValue.text = "0"
             }
         }
+    }
 
-        //Average stat -----------------------------------------------------------------------------
+    private fun observeAverageStatSelectedCategories() {
+        observeAverageStatSelectedCategoriesThisMonth()
 
-        viewModel.programmingAvDayStatByYearAllCategories.observe(viewLifecycleOwner){ sum ->
-            binding.tvAllValue.text = sum
-        }
+        observeAverageStatSelectedCategoriesThisYear()
 
-        viewModel.programmingAvDayStatByYearZaycevType.observe(viewLifecycleOwner){ sum ->
-            binding.tvZaycevValue.text = sum
+        observeAverageStatSelectedCategoriesAllTime()
+    }
+
+    private fun observeAverageStatAllCategories() {
+        observeAverageStatAllCategoriesThisMonth()
+
+        observeAverageStatAllCategoriesAllTime()
+
+        observeAverageStatAllCategoriesThisYear()
+    }
+
+    private fun observeAverageStatAllCategoriesThisYear() {
+        viewModel.durationByAllCategoriesAvByYear.observe(viewLifecycleOwner){sum ->
+            binding.tvAllCategoriesValueAverage.text = sum
         }
     }
 
-    private fun changeButtonColor(types: ButtonTypes){
-        when(types){
+    private fun observeAverageStatAllCategoriesAllTime() {
+        viewModel.durationByAllCategoriesAvByAllTime.observe(viewLifecycleOwner) { sum ->
+            binding.tvAllCategoriesValueAverage.text = sum
+        }
+    }
+
+    private fun observeAverageStatAllCategoriesThisMonth() {
+        viewModel.durationByAllCategoriesAvByMonth.observe(viewLifecycleOwner) { sum ->
+            binding.tvAllCategoriesValueAverage.text = sum
+        }
+    }
+
+    private fun observeAverageStatSelectedCategoriesThisMonth() {
+        viewModel.durationZayAvByMonth.observe(viewLifecycleOwner) { sum ->
+            binding.tvZaycevValueAverage.text = sum
+        }
+
+        viewModel.durationMyAppAvByMonth.observe(viewLifecycleOwner) { sum ->
+            binding.tvMyAppValueAverage.text = sum
+        }
+
+        viewModel.durationAnkiAvByMonth.observe(viewLifecycleOwner) { sum ->
+            binding.tvAnkiValueAverage.text = sum
+        }
+
+        viewModel.durationSkillboxAvByMonth.observe(viewLifecycleOwner) { sum ->
+            binding.tvSkillboxValueAverage.text = sum
+        }
+
+        viewModel.durationPuzzleAvByMonth.observe(viewLifecycleOwner) { sum ->
+            binding.tvPuzzleValueAverage.text = sum
+        }
+
+        viewModel.durationCommonEducationAvByMonth.observe(viewLifecycleOwner) { sum ->
+            binding.tvCommonEducationValueAverage.text = sum
+        }
+    }
+
+    private fun changeButtonColor(types: ButtonTypes) {
+        when (types) {
             ButtonTypes.DAY -> {
                 isDayButtonClicked = true
                 isMonthButtonClicked = false
@@ -455,53 +571,84 @@ class ProgrammingFragment : Fragment(R.layout.fragment_programming) {
                 isAvAllButtonClicked = true
             }
         }
-        if (isDayButtonClicked){
+        if (isDayButtonClicked) {
             binding.buttonDay.setBackgroundColor(requireContext().getColor(R.color.purple_500))
             binding.tvResultsTitle.text = "Results of the day"
         } else {
             binding.buttonDay.setBackgroundColor(requireContext().getColor(R.color.grey_200))
         }
 
-        if (isMonthButtonClicked){
+        if (isMonthButtonClicked) {
             binding.buttonMonth.setBackgroundColor(requireContext().getColor(R.color.purple_500))
             binding.tvResultsTitle.text = "Results of the month"
         } else {
             binding.buttonMonth.setBackgroundColor(requireContext().getColor(R.color.grey_200))
         }
 
-        if (isYearButtonClicked){
+        if (isYearButtonClicked) {
             binding.buttonYear.setBackgroundColor(requireContext().getColor(R.color.purple_500))
             binding.tvResultsTitle.text = "Results of the year"
         } else {
             binding.buttonYear.setBackgroundColor(requireContext().getColor(R.color.grey_200))
         }
 
-        if (isAllButtonClicked){
+        if (isAllButtonClicked) {
             binding.buttonAll.setBackgroundColor(requireContext().getColor(R.color.purple_500))
             binding.tvResultsTitle.text = "Results of all time"
         } else {
             binding.buttonAll.setBackgroundColor(requireContext().getColor(R.color.grey_200))
         }
+    }
 
-        if (isAvMonthButtonClicked){
-            binding.buttonAvMonth.setBackgroundColor(requireContext().getColor(R.color.purple_500))
-            binding.tvResultsTitle.text = "Average day result by month"
-        } else {
-            binding.buttonAvMonth.setBackgroundColor(requireContext().getColor(R.color.grey_200))
+    private fun observeAverageStatSelectedCategoriesAllTime(){
+        viewModel.durationZayAvByAllTime.observe(viewLifecycleOwner) { sum ->
+            binding.tvZaycevValueAverage.text = sum
         }
 
-        if (isAvYearButtonClicked){
-            binding.buttonAvYear.setBackgroundColor(requireContext().getColor(R.color.purple_500))
-            binding.tvResultsTitle.text = "Average day result by year"
-        } else {
-            binding.buttonAvYear.setBackgroundColor(requireContext().getColor(R.color.grey_200))
+        viewModel.durationMyAppAvByAllTime.observe(viewLifecycleOwner) { sum ->
+            binding.tvMyAppValueAverage.text = sum
         }
 
-        if (isAvAllButtonClicked){
-            binding.buttonAvAll.setBackgroundColor(requireContext().getColor(R.color.purple_500))
-            binding.tvResultsTitle.text = "Average day result by all time"
-        } else {
-            binding.buttonAvAll.setBackgroundColor(requireContext().getColor(R.color.grey_200))
+        viewModel.durationAnkiAvByAllTime.observe(viewLifecycleOwner) { sum ->
+            binding.tvAnkiValueAverage.text = sum
+        }
+
+        viewModel.durationSkillboxAvByAllTime.observe(viewLifecycleOwner) { sum ->
+            binding.tvSkillboxValueAverage.text = sum
+        }
+
+        viewModel.durationPuzzleAvByAllTime.observe(viewLifecycleOwner) { sum ->
+            binding.tvPuzzleValueAverage.text = sum
+        }
+
+        viewModel.durationCommonEducationAvByAllTime.observe(viewLifecycleOwner) { sum ->
+            binding.tvCommonEducationValueAverage.text = sum
+        }
+    }
+
+    private fun observeAverageStatSelectedCategoriesThisYear(){
+        viewModel.durationZayAvByYear.observe(viewLifecycleOwner) { sum ->
+            binding.tvZaycevValueAverage.text = sum
+        }
+
+        viewModel.durationMyAppAvByYear.observe(viewLifecycleOwner) { sum ->
+            binding.tvMyAppValueAverage.text = sum
+        }
+
+        viewModel.durationAnkiAvByYear.observe(viewLifecycleOwner) { sum ->
+            binding.tvAnkiValueAverage.text = sum
+        }
+
+        viewModel.durationSkillboxAvByYear.observe(viewLifecycleOwner) { sum ->
+            binding.tvSkillboxValueAverage.text = sum
+        }
+
+        viewModel.durationPuzzleAvByYear.observe(viewLifecycleOwner) { sum ->
+            binding.tvPuzzleValueAverage.text = sum
+        }
+
+        viewModel.durationCommonEducationAvByMonth.observe(viewLifecycleOwner) { sum ->
+            binding.tvCommonEducationValueAverage.text = sum
         }
     }
 }
