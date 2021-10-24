@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.mystat.MainFragment"
+        android:name="com.mystat.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_programmingFragment"
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/programmingFragment"
-        android:name="com.example.mystat.programming.ProgrammingFragment"
+        android:name="com.mystat.programming.ProgrammingFragment"
         android:label="ProgrammingFragment" >
         <action
             android:id="@+id/action_programmingFragment_to_programmingListStatFragment"
@@ -49,42 +49,54 @@
     </fragment>
     <fragment
         android:id="@+id/englishFragment"
-        android:name="com.example.mystat.EnglishFragment"
+        android:name="com.mystat.EnglishFragment"
         android:label="EnglishFragment" />
     <fragment
         android:id="@+id/chessFragment"
-        android:name="com.example.mystat.ChessFragment"
+        android:name="com.mystat.ChessFragment"
         android:label="ChessFragment" />
     <fragment
         android:id="@+id/readingFragment"
-        android:name="com.example.mystat.ReadingFragment"
+        android:name="com.mystat.ReadingFragment"
         android:label="ReadingFragment" />
     <fragment
         android:id="@+id/meditationFragment"
-        android:name="com.example.mystat.MeditationFragment"
+        android:name="com.mystat.MeditationFragment"
         android:label="MeditationFragment" />
     <fragment
         android:id="@+id/artFragment"
-        android:name="com.example.mystat.ArtFragment"
+        android:name="com.mystat.ArtFragment"
         android:label="ArtFragment" />
     <fragment
         android:id="@+id/sportFragment"
-        android:name="com.example.mystat.SportFragment"
+        android:name="com.mystat.SportFragment"
         android:label="SportFragment" />
     <fragment
         android:id="@+id/brainFragment"
-        android:name="com.example.mystat.BrainFragment"
+        android:name="com.mystat.BrainFragment"
         android:label="BrainFragment" />
     <fragment
         android:id="@+id/footballFragment"
-        android:name="com.example.mystat.FootballFragment"
+        android:name="com.mystat.FootballFragment"
         android:label="FootballFragment" />
     <fragment
         android:id="@+id/videoFragment"
-        android:name="com.example.mystat.VideoFragment"
+        android:name="com.mystat.VideoFragment"
         android:label="VideoFragment" />
     <fragment
         android:id="@+id/programmingListStatFragment"
-        android:name="com.example.mystat.programming.ProgrammingListStatFragment"
-        android:label="ProgrammingListStatFragment" />
+        android:name="com.mystat.programming.ProgrammingListStatFragment"
+        android:label="ProgrammingListStatFragment" >
+        <action
+            android:id="@+id/action_programmingListStatFragment_to_updateStatFragment"
+            app:destination="@id/updateStatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateStatFragment"
+        android:name="com.mystat.programming.UpdateStatFragment"
+        android:label="UpdateStatFragment" >
+        <argument
+            android:name="statId"
+            app:argType="long" />
+    </fragment>
 </navigation>
