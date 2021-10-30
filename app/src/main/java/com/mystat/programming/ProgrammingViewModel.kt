@@ -211,6 +211,12 @@ class ProgrammingViewModel : ViewModel() {
 
     //METHODS ---------------------------------------------------------------------------------------------------
 
+    //Add to Firebase database
+    fun addToFirebaseDatabase(programmingStat: ProgrammingStatForFirebase){
+        repository.add(programmingStat)
+    }
+
+
     //Adding and getting programming statistic -----------------------------------------------------
     fun addProgrammingStat(programmingStat: List<ProgrammingStat>) {
         viewModelScope.launch(Dispatchers.IO) {

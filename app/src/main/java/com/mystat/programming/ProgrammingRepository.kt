@@ -1,10 +1,32 @@
 package com.mystat.programming
 
+import com.google.android.gms.tasks.Task
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.mystat.db.Database
+import com.mystat.db.DbConstants
+import timber.log.Timber
 
 class ProgrammingRepository {
 
     private val programmingDao = Database.instance.programmingDao()
+    lateinit var databaseReference: DatabaseReference
+
+    init {
+        val db: FirebaseDatabase = FirebaseDatabase.getInstance()
+        databaseReference = db.getReference(DbConstants.PROGR_TABLE_NAME)
+
+    }
+
+    fun add (programmingStat: ProgrammingStatForFirebase): Task<Void>{
+        return databaseReference.push().setValue(programmingStat).addOnSuccessListener { success ->
+            Timber.d("success")
+        }.addOnFailureListener {
+            Timber.d("failure message = ${it.message}")
+        }
+    }
+
+
 
     suspend fun getProgrammingStat(): List<ProgrammingStat>{
         return programmingDao.getProgrammingStat()

@@ -11,16 +11,14 @@ import com.mystat.db.TimeTypeConverter
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-@Entity(tableName = DbConstants.PROGR_TABLE_NAME)
-@TypeConverters(value = [ProgrammingTypeConverter::class, TimeTypeConverter::class, DayTypeConverter::class])
-data class ProgrammingStat(
+data class ProgrammingStatForFirebase(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = DbConstants.ProgrammingColumns.ID)
     val id: Long = 0,
     @ColumnInfo(name = DbConstants.ProgrammingColumns.TIME)
-    val time: LocalDateTime = LocalDateTime.now(),
+    val time: String = LocalDateTime.now().toString(),
     @ColumnInfo(name = DbConstants.ProgrammingColumns.DAY)
-    val day: LocalDate = LocalDate.now(),
+    val day: String = LocalDate.now().toString(),
     @ColumnInfo(name = DbConstants.ProgrammingColumns.DURATION)
     val durationInMin: Int,
     @ColumnInfo(name = DbConstants.ProgrammingColumns.TYPE)
