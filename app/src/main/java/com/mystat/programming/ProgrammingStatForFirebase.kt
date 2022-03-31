@@ -20,7 +20,7 @@ data class ProgrammingStatForFirebase(
     @ColumnInfo(name = DbConstants.ProgrammingColumns.DAY)
     val day: String = LocalDate.now().toString(),
     @ColumnInfo(name = DbConstants.ProgrammingColumns.DURATION)
-    val durationInMin: Int,
+    val durationInMin: Int = 0,
     @ColumnInfo(name = DbConstants.ProgrammingColumns.TYPE)
-    val type: ProgrammingTypes
+    val type: ProgrammingTypes = ProgrammingTypes.ANKI
 )

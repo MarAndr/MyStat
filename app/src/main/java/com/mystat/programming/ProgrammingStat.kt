@@ -24,5 +24,7 @@ data class ProgrammingStat(
     @ColumnInfo(name = DbConstants.ProgrammingColumns.DURATION)
     val durationInMin: Int,
     @ColumnInfo(name = DbConstants.ProgrammingColumns.TYPE)
-    val type: ProgrammingTypes
+    val type: ProgrammingTypes,
+    @ColumnInfo(name = DbConstants.ProgrammingColumns.USER_ID)
+    val uid: String
 )

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/loggingFragment">
+
+    <fragment
+        android:id="@+id/programmingFragment"
+        android:name="com.mystat.programming.ProgrammingFragment"
+        android:label="ProgrammingFragment" >
+        <action
+            android:id="@+id/action_programmingFragment_to_programmingListStatFragment"
+            app:destination="@id/programmingListStatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/englishFragment"
+        android:name="com.mystat.EnglishFragment"
+        android:label="EnglishFragment" />
+    <fragment
+        android:id="@+id/chessFragment"
+        android:name="com.mystat.ChessFragment"
+        android:label="ChessFragment" />
+    <fragment
+        android:id="@+id/readingFragment"
+        android:name="com.mystat.ReadingFragment"
+        android:label="ReadingFragment" />
+    <fragment
+        android:id="@+id/meditationFragment"
+        android:name="com.mystat.MeditationFragment"
+        android:label="MeditationFragment" />
+    <fragment
+        android:id="@+id/artFragment"
+        android:name="com.mystat.ArtFragment"
+        android:label="ArtFragment" />
+    <fragment
+        android:id="@+id/sportFragment"
+        android:name="com.mystat.SportFragment"
+        android:label="SportFragment" />
+    <fragment
+        android:id="@+id/brainFragment"
+        android:name="com.mystat.BrainFragment"
+        android:label="BrainFragment" />
+    <fragment
+        android:id="@+id/footballFragment"
+        android:name="com.mystat.FootballFragment"
+        android:label="FootballFragment" />
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.mystat.VideoFragment"
+        android:label="VideoFragment" />
+    <fragment
+        android:id="@+id/programmingListStatFragment"
+        android:name="com.mystat.programming.ProgrammingListStatFragment"
+        android:label="ProgrammingListStatFragment" >
+        <action
+            android:id="@+id/action_programmingListStatFragment_to_updateStatFragment"
+            app:destination="@id/updateStatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateStatFragment"
+        android:name="com.mystat.programming.UpdateStatFragment"
+        android:label="UpdateStatFragment" >
+        <argument
+            android:name="statId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/loggingFragment"
+        android:name="com.mystat.LoggingFragment"
+        android:label="LoggingFragment" >
+        <action
+            android:id="@+id/action_loggingFragment_to_mainFragment2"
+            app:destination="@id/mainFragment2" />
+        <action
+            android:id="@+id/action_loggingFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_loggingFragment_to_forgotPassFragment"
+            app:destination="@id/forgotPassFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment2"
+        android:name="com.mystat.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment2_to_englishFragment"
+            app:destination="@id/englishFragment" />
+        <action
+            android:id="@+id/action_mainFragment2_to_meditationFragment"
+            app:destination="@id/meditationFragment" />
+        <action
+            android:id="@+id/action_mainFragment2_to_sportFragment"
+            app:destination="@id/sportFragment" />
+        <action
+            android:id="@+id/action_mainFragment2_to_readingFragment"
+            app:destination="@id/readingFragment" />
+        <action
+            android:id="@+id/action_mainFragment2_to_artFragment"
+            app:destination="@id/artFragment" />
+        <action
+            android:id="@+id/action_mainFragment2_to_videoFragment"
+            app:destination="@id/videoFragment" />
+        <action
+            android:id="@+id/action_mainFragment2_to_artFragment2"
+            app:destination="@id/artFragment" />
+        <action
+            android:id="@+id/action_mainFragment2_to_videoFragment2"
+            app:destination="@id/videoFragment" />
+        <action
+            android:id="@+id/action_mainFragment2_to_footballFragment"
+            app:destination="@id/footballFragment" />
+        <action
+            android:id="@+id/action_mainFragment2_to_programmingFragment"
+            app:destination="@id/programmingFragment" />
+        <action
+            android:id="@+id/action_mainFragment2_to_chessFragment"
+            app:destination="@id/chessFragment" />
+        <action
+            android:id="@+id/action_mainFragment2_to_brainFragment"
+            app:destination="@id/brainFragment" />
+        <action
+            android:id="@+id/action_mainFragment2_to_loggingFragment"
+            app:destination="@id/loggingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.mystat.RegistrationFragment"
+        android:label="RegistrationFragment" >
+        <action
+            android:id="@+id/action_registrationFragment_to_loggingFragment"
+            app:destination="@id/loggingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPassFragment"
+        android:name="com.mystat.ForgotPassFragment"
+        android:label="ForgotPassFragment" />
+</navigation>

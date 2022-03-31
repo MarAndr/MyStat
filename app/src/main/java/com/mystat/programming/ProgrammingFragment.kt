@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.mystat.R
 import com.mystat.databinding.FragmentProgrammingBinding
 import com.mystat.utils.getProgrammingTypesFromRadioGroup
@@ -75,13 +76,14 @@ class ProgrammingFragment : Fragment(R.layout.fragment_programming) {
         }
 
         binding.buttonOk.setOnClickListener {
-
+            viewModel.getFromFB()
             val duration = binding.editText.text.toString().toIntOrNull()
             val programmingStat = listOf(
                 ProgrammingStat(
                     id = 0,
                     durationInMin = duration ?: 0,
-                    type = programmingTypesAdding
+                    type = programmingTypesAdding,
+                    uid = FirebaseAuth.getInstance().currentUser?.uid?:"emptyUid"
                 )
             )
             viewModel.apply {
@@ -202,6 +204,10 @@ class ProgrammingFragment : Fragment(R.layout.fragment_programming) {
     }
 
     private fun observe() {
+
+        viewModel.programmStatsFromFB.observe(viewLifecycleOwner){progrFB ->
+            Timber.d("programmFB = $progrFB")
+        }
 
         //Total stat ----------------------------------------------------------------
 

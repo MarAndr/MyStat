@@ -1,18 +1,28 @@
 package com.mystat.programming
 
+import android.app.Activity
+import android.graphics.drawable.BitmapDrawable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.mystat.Months
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
 class ProgrammingViewModel : ViewModel() {
+
+    private val auth = Firebase.auth
 
     //VARIABLES ---------------------------------------------------------------------------------------------------
 
@@ -208,12 +218,19 @@ class ProgrammingViewModel : ViewModel() {
     private val _durationCommonEducationAvByAllTime = MutableLiveData<String>()
     val durationCommonEducationAvByAllTime: LiveData<String> = _durationCommonEducationAvByAllTime
 
+    private val _programmStatsFromFB = MutableLiveData<ProgrammingStatForFirebase>()
+    val programmStatsFromFB: LiveData<ProgrammingStatForFirebase> = _programmStatsFromFB
+
 
     //METHODS ---------------------------------------------------------------------------------------------------
 
     //Add to Firebase database
     fun addToFirebaseDatabase(programmingStat: ProgrammingStatForFirebase){
         repository.add(programmingStat)
+    }
+
+    fun getFromFB(){
+        repository.getFromFB()
     }
 
 

@@ -5,6 +5,7 @@ object DbConstants {
     const val DB_NAME = "my_stat"
     const val DB_VER = 1
 
+    const val USER_TABLE_NAME = "user_table"
     const val PROGR_TABLE_NAME = "programming_table"
     const val ENG_TABLE_NAME = "eng_table"
     const val CHESS_TABLE_NAME = "chess_table"
@@ -21,5 +22,12 @@ object DbConstants {
         const val TIME = "time"
         const val DAY = "day"
         const val TYPE = "type"
+        const val USER_ID = "uid"
+    }
+
+    object UserColumns{
+        const val UID = "uid"
+        const val NAME = "name"
+        const val EMAIL = "email"
     }
 }

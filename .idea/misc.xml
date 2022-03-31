@@ -9,18 +9,21 @@
         <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/fragment_chess.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/fragment_eng.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/fragment_football.xml" value="0.1793478260869565" />
-        <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/fragment_login.xml" value="0.21467391304347827" />
+        <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/fragment_forgot_pass.xml" value="0.20606884057971014" />
+        <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/fragment_main.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/fragment_meditation.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/fragment_programming.xml" value="0.264" />
         <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/fragment_programmingStatList.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/fragment_programming_stat_list.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/fragment_reading.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/fragment_registration.xml" value="0.21467391304347827" />
         <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/fragment_sport.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/fragment_update_stat.xml" value="0.24728260869565216" />
         <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/fragment_video.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/item_prog_stat.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/layout/types_list_item.xml" value="0.24728260869565216" />
+        <entry key="..\:/Users/anmar/AndroidStudioProjects/MyStat/app/src/main/res/menu/menu_main.xml" value="0.25" />
         <entry key="..\:/Users/anmar/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_spinner_item.xml" value="0.25" />
       </map>
     </option>

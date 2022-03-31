@@ -1,8 +1,7 @@
 package com.mystat.programming
 
 import com.google.android.gms.tasks.Task
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.mystat.db.Database
 import com.mystat.db.DbConstants
 import timber.log.Timber
@@ -26,7 +25,40 @@ class ProgrammingRepository {
         }
     }
 
+    fun getFromFB(): List<ProgrammingStatForFirebase>{
+//        val progrFromFB = databaseReference.get().addOnSuccessListener {
+//            val value = it.getValue(ProgrammingStatForFirebase::class.java)
+//            Timber.d("value = $value")
+//        }
+        val mutableList: MutableList<ProgrammingStatForFirebase> = mutableListOf()
+        databaseReference.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.children.forEach {
+                    val progrStatFB: ProgrammingStatForFirebase = it.getValue(ProgrammingStatForFirebase::class.java)!!
+                    mutableList.add(progrStatFB)
+                    Timber.d("programFB = $progrStatFB")
+                }
+            }
 
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+        return mutableList
+    }
+
+//    fun getFromFB(){
+//        databaseReference.addValueEventListener(object: ValueEventListener{
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                val programmingStatForFirebase = snapshot.getValue(ProgrammingStatForFirebase::class.java)
+//                Timber.d("programmingStatForFB = $programmingStatForFirebase")
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                Timber.d("programmingStatForFB")
+//            }
+//        })
+//    }
 
     suspend fun getProgrammingStat(): List<ProgrammingStat>{
         return programmingDao.getProgrammingStat()
@@ -67,4 +99,15 @@ class ProgrammingRepository {
     suspend fun getAllSumByTypeToday(types: ProgrammingTypes): Int{
         return programmingDao.sumAllDurationsByTypeToday(types)
     }
+
+    companion object {
+        const val WIFI = "Wi-Fi"
+        const val ANY = "Any"
+        const val NO = "No connection"
+        const val CHAT = "chat"
+    }
+}
+
+object ConnectionTypeObject{
+    var connectionType = ""
 }
