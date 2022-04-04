@@ -7,4 +7,8 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "MyStat"
-include ':app'
+include (":app")
+include (":feature-screen-login")
+include (":mylibrary:api")
+include (":mylibrary:impl")
+include (":mylibrary:test")

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018 IDScan.net
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  ~ Support: support@idscan.com
+  ~
+  -->
+
+<resources>
+    <string name="readers_title">Readers</string>
+    <string name="interface_customization_title">Interface Customization</string>
+    <string name="warning_popup_title">Warning Pop-Ups</string>
+    <string name="address_title">Address</string>
+    <string name="age_title">Age</string>
+    <string name="alert_list_title">Alert list</string>
+    <string name="expiration_title">Expiration</string>
+    <string name="gold_zip_code_title">Gold Zip Code</string>
+    <string name="group_title">Group</string>
+    <string name="offline_alert_title">Offline Alert List</string>
+    <string name="rescan_title">Rescan</string>
+    <string name="suspicious_id_title">Suspicious ID</string>
+    <string name="agreement_screen_title">Agreement Screen</string>
+    <string name="screening_service_button_title">Screening Services Button</string>
+    <string name="auto_run_title">Auto-run all available screening services</string>
+    <string name="agreement_button_title">Agreement Button</string>
+    <string name="cant_scan_id_button_title">Can\'t Scan ID Button</string>
+    <string name="counter_title">Counter</string>
+    <string name="reset_counter_title">Reset Counter</string>
+    <string name="auto_start_title">Auto Start</string>
+    <string name="location_title">Location</string>
+    <string name="screening_service_annotation_text">Show button on the main screen</string>
+    <string name="show_button_annotation_text">Show button on the main screen</string>
+    <string name="launch_app_annotation_text">Launch the app on system startup</string>
+    <string name="set_location_cloud_annotation_text">Set the location of the cloud service</string>
+    <string name="warning_address_annotation_text">Show address warning after scan</string>
+    <string name="age_warning_annotation_text">Show age warning after scan</string>
+    <string name="alert_list_annotation_text">Show alert list warning after scan</string>
+    <string name="expiration_after_scan_annotation_text">Show expiration warning after scan</string>
+    <string name="vip_status_warning_scan_annotation_text">Show Vip status warning after scan</string>
+    <string name="group_warning_scan_annotation_text">Show group warning after scan</string>
+    <string name="alert_offline_annotation_text">Show alert list warning after scan in offline mode</string>
+    <string name="rescan_warning_annotation_text">Show rescan warning after scan</string>
+    <string name="suspicious_id_warning_annotation_text">Show suspicious ID warning after scan</string>
+    <string name="agreement_screen_annotation_text">Show agreement screen after scan</string>
+    <string name="reset_counter_question_text">Are you sure you want to reset visitor counter to zero? This action cannot be undone</string>
+    <string name="dialog_button_close_text">Close</string>
+    <string name="dialog_button_reset_text">Reset</string>
+
+</resources>
